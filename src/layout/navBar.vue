@@ -4,12 +4,14 @@
       欢迎你，XXX
     </a-col>
     <a-col :span="4" class="center" @click="goOut">
+      <poweroff-outlined />
       退出登录
     </a-col>
   </a-row>
 
 </template>
 <script setup>
+import { PoweroffOutlined } from '@ant-design/icons-vue';
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
 import { useUserStore } from '@/store/useUser'
@@ -29,6 +31,8 @@ const goOut = () => {
     padding: 0 20px 0 35px;
     box-sizing: border-box;
     color: #fff;
+    font-size: 14px;
+    font-weight: bold;
     
     .center {
       height: 100%;

@@ -1,37 +1,40 @@
 <template>
-  <a-row justify="center" class="warp">
-    <a-col :xs="18" :sm="14" :md="12" :lg="6" :xl="6" class="login-warp">
-      <div class="logo"></div>
-      <a-form
-        style="width: 100%"
-        :model="formState"
-        name="loginRef"
-        ref="loginRef"
-        :layout="'vertical'"
-        :wrapper-col="{ span: 24 }"
-        autocomplete="off"
-      >
-        <a-form-item
-          label="账号"
-          name="username"
-          :rules="[{ required: true, message: '请输入账号!' }]"
+  
+
+  <div class="warp">
+    <div class="bj"></div>
+    <a-row justify="center" class="warp">
+      <a-col :xs="18" :sm="14" :md="12" :lg="6" :xl="6" class="login-warp">
+        <a-form
+          style="width: 100%"
+          :model="formState"
+          name="loginRef"
+          ref="loginRef"
+          :layout="'vertical'"
+          :wrapper-col="{ span: 24 }"
+          autocomplete="off"
         >
-          <a-input v-model:value="formState.username" />
-        </a-form-item>
+          <a-form-item
+            label="账号"
+            name="username"
+            :rules="[{ required: true, message: '请输入账号!' }]"
+          >
+            <a-input v-model:value="formState.username" />
+          </a-form-item>
 
-        <a-form-item
-          label="密码"
-          name="password"
-          :rules="[{ required: true, message: '请输入密码!' }]"
-        >
-          <a-input-password v-model:value="formState.password" />
-        </a-form-item>
-      </a-form>
+          <a-form-item
+            label="密码"
+            name="password"
+            :rules="[{ required: true, message: '请输入密码!' }]"
+          >
+            <a-input-password v-model:value="formState.password" />
+          </a-form-item>
+        </a-form>
 
-      <a-button type="primary" block @click="loginSubmit">登录</a-button>
-    </a-col>
-  </a-row>
-
+        <a-button type="primary" block @click="loginSubmit">登录</a-button>
+      </a-col>
+    </a-row>
+  </div>
 
 
 </template>
@@ -84,8 +87,29 @@ const loginSubmit = () => {
 .warp {
   height: 100%;
   display: flex;
-  align-items: center;
+  width: 100%;
   justify-content: center;
+  padding-top: 120px;
+  position: relative;
+  
+}
+.bj{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-image: url('../../assets/bj4.jpg');
+  background-color: #16161a;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
 }
   .login-warp {
     
