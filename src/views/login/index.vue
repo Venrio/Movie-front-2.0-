@@ -84,6 +84,13 @@ const loginSubmit = () => {
 
 
 <style scoped lang="less">
+/deep/.ant-btn{
+  font-size: 16px;
+}
+/deep/.ant-form-item-label > label {
+  color: #fff;
+  font-size: 16px;
+}
 .warp {
   height: 100%;
   display: flex;
@@ -103,7 +110,7 @@ const loginSubmit = () => {
   background-color: #16161a;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 100% auto;
+  background-size: cover;
  
 }
   .login-warp {
