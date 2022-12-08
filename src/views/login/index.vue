@@ -99,17 +99,12 @@ const loginSubmit = () => {
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url('../../assets/bj4.jpg');
+  background-image: url('../../assets/bj5.jpg');
   background-color: #16161a;
   background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-  filter: grayscale(100%);
-  filter: gray;
+  background-position: center center;
+  background-size: 100% auto;
+ 
 }
   .login-warp {
     
