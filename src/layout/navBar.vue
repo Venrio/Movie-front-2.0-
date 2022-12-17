@@ -1,7 +1,7 @@
 <template>
   <a-row class="navBar">
     <a-col :span="18" class="center left">
-      欢迎你，XXX
+      欢迎你，{{userInfo.username}}
     </a-col>
     <a-col :span="4" class="center" @click="goOut">
       <poweroff-outlined />
@@ -15,7 +15,7 @@ import { PoweroffOutlined } from '@ant-design/icons-vue';
 import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
 import { useUserStore } from '@/store/useUser'
-const { token, clearToken } = useUserStore()
+const { token, clearToken, userInfo } = useUserStore()
 const router = useRouter()
 const goOut = () => {
   clearToken()

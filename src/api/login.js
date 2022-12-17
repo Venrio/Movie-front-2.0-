@@ -2,8 +2,8 @@ import request from '@/utils/request'
 // 登录
 export const loginApi = () => {
   return request({
-    url: '/mock/login',
-    method: 'get'
+    url: '/user/login',
+    method: 'post'
   })
 }
 

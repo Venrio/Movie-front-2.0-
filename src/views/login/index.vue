@@ -44,7 +44,7 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/useUser'
 import { loginApi } from '@/api/login'
 
-
+import { message } from 'ant-design-vue';
 // 路由
 const router = useRouter()
 // tab交互
@@ -69,8 +69,13 @@ const loginSubmit = () => {
     // 调取登陆接口，保存token,并且跳转首页
     const { setToken } = useUserStore()
     loginApi(data).then(res => {
-      setToken(res.token)
-      router.push('/home')
+      console.log('====', res)
+      if (res.code == 200) {
+        setToken(res.data)
+        router.push('/home')
+      } else {
+        message.info(res.msg)
+      }
     })
     
   }).catch(err => {

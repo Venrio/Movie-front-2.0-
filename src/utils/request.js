@@ -21,14 +21,14 @@ service.interceptors.request.use(
 // 响应拦截
 service.interceptors.response.use(
   (res) => {
-    if (res.code === 403) {
+    if (res.code === 400) {
       message.info('登录过期')
       clearToken()
       router.push('/login')
       return
     }
 
-    return Promise.resolve(res.data.data)
+    return Promise.resolve(res.data)
   },
   (err) => {
     message.info(err)
