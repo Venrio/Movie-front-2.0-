@@ -8,7 +8,7 @@
         <a-card-meta :title="item.title">
           <template #description>
             <div>
-              <div class="tag" v-if="item.tag.length">
+              <div class="tag" v-if="item.tag">
                 <a-tag color="orange" style="margin-bottom: 10px" v-for="i in item.tag" :key="i" >{{i}}</a-tag>
               </div>
               <!-- <div class="time"><history-outlined /> 2020/09/30 22:00</div> -->
@@ -18,16 +18,14 @@
         </a-card-meta>
       </a-card>
     </a-col>
-    <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" style="display: flex;
-    flex-direction: column;
-    align-items: center;">
+    <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" style="display: flex;flex-direction: column;align-items: center;"  v-else>
       <img src="../../assets/no-data.png" alt="">
       <div>暂无数据</div>
     </a-col>
   </a-row>
   <!-- 分页 -->
   <a-row justify="end" style="margin-top: 20px" v-if="total">
-    <a-col :xs="24" :sm="24" :md="20" :lg="14" :xl="10">
+    <a-col :xs="24" :sm="24" :md="20" :lg="14" :xl="10" style="text-align:right">
       <a-pagination v-model:current="current" :total="total" @change="change" />
     </a-col>
   </a-row>
@@ -63,13 +61,13 @@ const change = (page, pageSize) => {
 
 const setRecord = (id) => {
   setRecords({
-    userid: token.value,
+    userid: Number(token),
     movieid: id
   }).then(res => {
     if (res.code == 200) {
       message.success('设置浏览成功')
     } else {
-      message.info(res.msg)
+       message.info(res.msg || '服务器内部错误')
     }
   })
 }

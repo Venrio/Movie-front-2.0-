@@ -1,9 +1,11 @@
 import request from '@/utils/request'
 // 登录
-export const loginApi = () => {
+export const loginApi = (data) => {
   return request({
-    url: '/user/login',
-    method: 'post'
+    url: '/api/user/login',
+    method: 'post',
+    headers:{"content-type":"application/json"},
+    data:data
   })
 }
 

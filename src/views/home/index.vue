@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <a-tabs v-model:activeKey="activeKey" @change="changeTab">
+    <a-tabs v-model:activeKey="activeKey" @tabClick="changeTab">
       <a-tab-pane key="1">
         <template #tab>
           <span>
@@ -98,7 +98,7 @@
             查询功能
           </span>
         </template>
-        <a-tabs v-model:activeKey="searchActive" type="card">
+        <a-tabs v-model:activeKey="searchActive" type="card" @tabClick="changeTabSmall">
           <a-tab-pane key="1" tab="用户观看记录查询">
             <a-form
               style="margin-bottom: 20px; width: 100%;"
@@ -223,13 +223,16 @@ onMounted(() => {
 })
 
 const changeTab = () => {
-  formState = reactive({
-    keyWord: '',
-    genres: ''
-  })
   formState.keyWord = ''
   formState.genres = ''
   formState2.gender = ''
+  formState3.userid = ''
+  formState4.gender = ''
+  formState4.rating = ''
+  init()
+}
+
+const changeTabSmall = () => {
   formState3.userid = ''
   formState4.gender = ''
   formState4.rating = ''
@@ -237,8 +240,8 @@ const changeTab = () => {
 
 
 // 分页
-const change = (page, pageSize) => {
-  pageSize.value = pageSize
+const change = (page, size) => {
+  pageSize.value = size
   current.value = page
   init()
 }
@@ -252,18 +255,20 @@ const init = () => {
       pageSize: pageSize.value,
       pageNum: current.value,
       param: {
-        userid: token.value
+        userid: Number(token)
       }
     }
+
     getRecords(data).then(res => {
       if (res.code == 200) {
         total.value = res.total
         list.value = res.data
       } else {
-        message.info(res.msg)
+         message.info(res.msg || '服务器内部错误')
       }
     })
   } else if (activeKey.value == 2) {
+
     // 搜索
     const data = {
       pageSize: pageSize.value,
@@ -281,21 +286,32 @@ const init = () => {
       }
     }
 
-    const date2 = {
+    const data2 = {
       pageSize: pageSize.value,
       pageNum: current.value,
       param: {
         genres: formState.genres
       }
     }
-    const str = (formState.keyWord && !formState.genres) ? listByKeyWord : (!formState.keyWord && formState.genres) ? showMostHotByGenres :listDefault
-    const post = (formState.keyWord && !formState.genres) ? data1 : (!formState.keyWord && formState.genres) ? data2 : data
+   
+    let str = listDefault
+    let post = data
+
+    if (formState.keyWord && !formState.genres) {
+      str = listByKeyWord
+      post = data1
+    } else if (!formState.keyWord && formState.genres) {
+      str = showMostHotByGenres
+      post = data2
+
+    }
+
     str(post).then(res => {
       if (res.code == 200) {
         total.value = res.total
         list.value = res.data
       } else {
-        message.info(res.msg)
+         message.info(res.msg || '服务器内部错误')
       }
     })
 
@@ -326,7 +342,7 @@ const init = () => {
         total.value = res.total
         list.value = res.data
       } else {
-        message.info(res.msg)
+         message.info(res.msg || '服务器内部错误')
       }
     }) 
   }else if (activeKey.value == 4) {
@@ -343,7 +359,7 @@ const init = () => {
       pageSize: pageSize.value,
       pageNum: current.value,
       param: {
-        userid: formState3.userid
+        userid: Number(formState3.userid)
       }
     }
     const data2 = {
@@ -351,12 +367,12 @@ const init = () => {
       pageNum: current.value,
       param: {
         gender: formState4.gender,
-        rating: formState4.rating
+        rating: Number(formState4.rating)
       }
     }
     let str = listDefault
     let post = data
-    if (searchActive == 1) {
+    if (searchActive.value == 1) {
       if (formState3.userid) {
         str = listByUserId
         post = data1
@@ -372,7 +388,7 @@ const init = () => {
         total.value = res.total
         list.value = res.data
       } else {
-        message.info(res.msg)
+         message.info(res.msg || '服务器内部错误')
       }
     })
 
@@ -389,7 +405,7 @@ const onFinish = () => {
 
 
 </script>
-<style scoped>
+<style scoped lang="less">
   /deep/.ant-card-body {
     padding: 10px;
   }

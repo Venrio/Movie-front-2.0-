@@ -68,13 +68,12 @@ const loginSubmit = () => {
     const data = { ...formState.value }
     // 调取登陆接口，保存token,并且跳转首页
     const { setToken } = useUserStore()
-    loginApi(data).then(res => {
-      console.log('====', res)
+    loginApi(JSON.stringify(formState)).then(res => {
       if (res.code == 200) {
         setToken(res.data)
         router.push('/home')
       } else {
-        message.info(res.msg)
+         message.info(res.msg || '服务器内部错误')
       }
     })
     

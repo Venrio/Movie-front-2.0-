@@ -16,6 +16,7 @@ import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { onMounted, ref, watch } from 'vue'
 import { useUserStore } from '@/store/useUser'
 const { token, clearToken, userInfo } = useUserStore()
+
 const router = useRouter()
 const goOut = () => {
   clearToken()
