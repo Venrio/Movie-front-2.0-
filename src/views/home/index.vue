@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <a-tabs v-model:activeKey="activeKey" @tabClick="changeTab">
+    <a-tabs v-model:activeKey="activeKey" @change="changeTab">
       <a-tab-pane key="1">
         <template #tab>
           <span>
@@ -76,7 +76,7 @@
                   v-model:value="formState2.gender"
                   style="width: 100%"
                 >
-                  <a-select-option value="Male">男</a-select-option>
+                  <a-select-option value="Man">男</a-select-option>
                   <a-select-option value="Female">女</a-select-option>
                   </a-select>
                 </a-form-item>
@@ -159,7 +159,7 @@
                       v-model:value="formState4.gender"
                       style="width: 100%"
                     >
-                      <a-select-option value="Male">男</a-select-option>
+                      <a-select-option value="Man">男</a-select-option>
                       <a-select-option value="Female">女</a-select-option>
                       </a-select>
                     </a-form-item>
@@ -171,7 +171,7 @@
                 </a-col>
               </a-row>  
             </a-form>
-            <TableList :list="list" :total="total" @change="change"/>
+            <TableList :list="list" :total="total" @change="change" :searchActive="2"/>
           </a-tab-pane>
         </a-tabs>
           
@@ -223,6 +223,7 @@ onMounted(() => {
 })
 
 const changeTab = () => {
+  console.log('999', activeKey.value)
   formState.keyWord = ''
   formState.genres = ''
   formState2.gender = ''
@@ -250,6 +251,7 @@ const change = (page, size) => {
 // init
 const init = () => {
   if (activeKey.value == 1) {
+    console.log('---------222', activeKey.value)
     // 浏览记录
     const data = {
       pageSize: pageSize.value,

@@ -8,11 +8,18 @@
         <a-card-meta :title="item.title">
           <template #description>
             <div>
-              <div class="tag" v-if="item.tag">
+              <div class="rating" v-if="item.rating">评分 {{item.rating}}分</div>
+              <!-- <div class="rating" v-if="item.relevance">关联度评分 {{item.relevance.join(',')}}</div> -->
+              <div class="rating" v-if="item.userid && searchActive==2">用户信息 {{item.userid}} {{item.name}}</div>
+              <div class="tag" v-if="item.tag && !item.relevance">
                 <a-tag color="orange" style="margin-bottom: 10px" v-for="i in item.tag" :key="i" >{{i}}</a-tag>
+              </div>
+              <div class="tag" v-if="item.tag && item.relevance">
+                <a-tag color="orange" style="margin-bottom: 10px" v-for="(i, idx) in item.tag" :key="i" >{{i}} {{item.relevance[idx]}}</a-tag>
               </div>
               <!-- <div class="time"><history-outlined /> 2020/09/30 22:00</div> -->
               <div class="time">{{item.genres}}</div>
+              
             </div>
           </template>
         </a-card-meta>
@@ -26,7 +33,7 @@
   <!-- 分页 -->
   <a-row justify="end" style="margin-top: 20px" v-if="total">
     <a-col :xs="24" :sm="24" :md="20" :lg="14" :xl="10" style="text-align:right">
-      <a-pagination v-model:current="current" :total="total" @change="change" />
+      <a-pagination v-model:current="current" v-model:pageSize="pageSize" :total="total" @change="change" :showSizeChanger="false" />
     </a-col>
   </a-row>
 </template>
@@ -39,6 +46,7 @@ import { message } from 'ant-design-vue';
 const {token} = useUserStore()
 const emits = defineEmits(['change'])
 const current = ref(1)
+const pageSize = ref(12)
 const props = defineProps({
   list: {
     type: Array,
@@ -51,7 +59,11 @@ const props = defineProps({
   activeKey: {
     type: Number,
     default: 0
-  }
+  },
+  searchActive: {
+    type: Number,
+    default: 0
+  },
 })
 
 const change = (page, pageSize) => {
@@ -72,3 +84,10 @@ const setRecord = (id) => {
   })
 }
 </script>
+<style>
+.rating {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+</style>
